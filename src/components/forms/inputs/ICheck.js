@@ -5,6 +5,7 @@ const ICheck = (field) => {
     return (
         <div className="checkbox icheck">
             <Checkbox  
+                cursor="false"
                 name="keep" 
                 {...field} 
                 {...field.input} 

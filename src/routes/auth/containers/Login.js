@@ -4,7 +4,10 @@ import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 
 import { loginUser } from '../../../components/user/UserActions';
-import ICheck from '../../../components/forms/inputs/ICheck'
+// import ICheck from '../../../components/forms/inputs/ICheck'
+
+import Checkbox from '../../../components/forms/inputs/Checkbox'
+
 import Msg from '../../../components/i18n/Msg';
 import Input from '../../../components/forms/inputs/Input';
 import AlertMessage, {ALERT_MSG_ERROR} from '../../../components/common/AlertMessage';
@@ -25,7 +28,7 @@ class Login extends React.Component {
         <div className="login-box">
           <div className="login-logo">
             <a href="#">
-              <span className="login-logo-main" >Dfoccus</span>
+              <span className="login-logo-main" >DFoccus</span>
               <span className="login-logo-sub" >Keep focused on your daily tasks</span>
 
             </a>
@@ -56,12 +59,9 @@ class Login extends React.Component {
               <div className="row">
                 <div className="col-xs-8">
                     <Field
-                      type="check"
                       name="keep"
-                      checkboxClass="icheckbox_square-blue"
-                      increaseArea="20%"
                       label=" Remember Me"
-                      component={ICheck}
+                      component={Checkbox}
                     />
                 </div>
                 <div className="col-xs-4">

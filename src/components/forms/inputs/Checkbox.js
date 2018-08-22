@@ -10,7 +10,10 @@ const Checkbox = (field) => {
 
         <div className="checkbox">
             <label>
-                <input type="checkbox" /> <Msg phrase={label} />
+                <input 
+                    type="checkbox" 
+                    {...field.input}                    
+                /> <Msg phrase={label} />
             </label>
         </div>
 

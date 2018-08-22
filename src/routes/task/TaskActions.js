@@ -1,5 +1,6 @@
 import database, {getUserPath} from '../../firebase/firebase';
 import history from '../../routes/History';
+import moment from 'moment';
 
 export const TASK_NEW         = 'TASK_NEW';
 export const TASK_UPDATE      = 'TASK_UPDATE';
@@ -23,10 +24,9 @@ export const new_task = (values) =>{
         dispatch({type: TASK_LAODING});
 
         const task = {
-            name : values.name,
-            closing_day : values.closing_day,
-            payment_day : values.payment_day,
-            limit : parseFloat(values.limit.replace('.', '').replace(',','.')).toFixed(2)
+            title : values.title,
+            start : moment(values.start).format(),
+            end : moment(values.end).format(),
         }
 
         return database.ref(`/users/${getState().user.uid}/${task_path}`)

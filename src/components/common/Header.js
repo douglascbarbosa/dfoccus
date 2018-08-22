@@ -14,8 +14,8 @@ export default class Header extends React.Component {
 				<header className="main-header">
 
 					<a href="index2.html" className="logo">
-						<span className="logo-mini"><b>A</b>LT</span>
-						<span className="logo-lg"><b>Onion</b>PFT</span>
+						<span className="logo-mini"><b>DF</b></span>
+						<span className="logo-lg"><b>DF</b>occus</span>
 					</a>
 
 					<nav className="navbar navbar-static-top">

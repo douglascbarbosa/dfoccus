@@ -19,6 +19,7 @@ export const loginUser = (values) => {
     return (dispatch) => {
         //Initiating the user login!
         dispatch({ type: LOGIN_USER });
+
         //User firebase to make the login and take user information!
         return firebase.auth().signInWithEmailAndPassword(values.email, values.password)
             .then(user => {
