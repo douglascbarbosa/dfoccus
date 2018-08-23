@@ -18,7 +18,7 @@ const Input = (field) => {
 	      	type={field.type} 
 			className="form-control"
 			placeholder={field.placeholder}   
-	      	{...field.input}
+			{...field.input}
 	      />
 		  {icon ? <i className={'fa form-control-feedback ' + icon}></i> : null}
 	      <span className="help-block">{touched ? <Msg phrase={error} /> : ''}</span>

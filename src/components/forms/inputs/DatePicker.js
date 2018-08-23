@@ -30,10 +30,12 @@ const DatePickerInput = (field) => {
 				dateFormat="MM/DD/YYYY HH:mm"
 				timeFormat="HH:mm"
 				// timeIntervals={1}
-				timeCaption="time"
+				timeCaption="Time"
 				showTimeSelect={showTimeSel}
 				selected={field.input.value ? moment(field.input.value) : null }
 				{...field.input}
+				autoComplete="off"
+				{...field}
 			/>
 
 		  {icon ? <i className={'fa form-control-feedback ' + icon}></i> : null}

@@ -17,7 +17,7 @@ export const TASK_CLEAR_ERROR = 'TASK_CLEAR_ERROR';
 
 const task_path = `tasks`;
 
-export const new_task = (values) =>{
+export const new_task = (values, redirect = '/tasks') =>{
 
     return (dispatch, getState) => {
 
@@ -41,7 +41,7 @@ export const new_task = (values) =>{
                 });
 
                 //After add a new card, redirect to the account list page!
-                history.push('/tasks');
+                history.push(redirect);
         })
         .catch(error => {
             dispatch({
@@ -53,17 +53,16 @@ export const new_task = (values) =>{
     }
 }
 
-export const update_task = (id, values) => {
+export const update_task = (id, values, redirect = '/tasks') => {
 
     return (dispatch, getState) => {
 
         dispatch({type: TASK_LAODING});
         
         const task = {
-            name : values.name,
-            closing_day : values.closing_day,
-            payment_day : values.payment_day,
-            limit : parseFloat(values.limit.replace('.', '').replace(',','.')).toFixed(2)
+            title : values.title,
+            start : moment(values.start).format(),
+            end : moment(values.end).format(),
         }
 
         return database.ref(`/users/${getState().user.uid}/${task_path}/${id}`)
@@ -71,14 +70,14 @@ export const update_task = (id, values) => {
             .then(ref => {
                 dispatch({
                     type: TASK_UPDATE,
-                    account : {
+                    task : {
                         id,
                         ...task
                     }
                 });
 
                 //After update the card, redirect to the account list page!
-                history.push('/tasks');
+                history.push(redirect);
         })
         .catch(error => {
             dispatch({

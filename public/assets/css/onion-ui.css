@@ -90,3 +90,11 @@
     line-height: 1.42857;
 }
   
+/* // Calendar events //*/
+.closeon{
+    position: absolute;
+    top: 0px;
+    /* float: left; */
+	left: 88%;	
+	z-index: 1000;
+}
