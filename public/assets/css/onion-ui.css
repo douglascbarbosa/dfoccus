@@ -98,3 +98,8 @@
 	left: 88%;	
 	z-index: 1000;
 }
+
+.inLineCheck{
+	margin: 5px;
+	font-weight: normal;
+}

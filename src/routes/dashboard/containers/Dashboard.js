@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 import AlertMessage, {ALERT_MSG_ERROR} from '../../../components/common/AlertMessage'
 
 import { Field, reduxForm } from 'redux-form'
-import {Input, DatePicker, Select} from '../../../components/forms/inputs'
+import {Input, DatePicker, Select, Checkbox} from '../../../components/forms/inputs'
 import 'fullcalendar-reactwrapper/dist/css/fullcalendar.min.css';
 import {new_task, fetch_tasks, update_task, delete_task} from '../../task/TaskActions';
 
@@ -21,6 +21,12 @@ class Dashboard extends React.Component {
   }
 
   onSubmit(values){
+//    console.log(values);
+    // let teste = []
+    // values.weekDay.forEach((day, index) =>{
+    //   teste.push(index);
+    // })
+    // console.log(teste);
     this.props.new_task(values, '/dashboard');
   }
 
@@ -100,6 +106,7 @@ class Dashboard extends React.Component {
                     <div className="col-lg-3">
                       <Field 
                           name="frequence"
+                          placeholder="Repeat by"
                           component={Select}
                           data={[
                             { text: 'Day', id: 'd' },
@@ -107,6 +114,26 @@ class Dashboard extends React.Component {
                             { text: 'Month', id: 'M' },
                             { text: 'Year', id: 'Y'}
                           ]}
+                        />
+                    </div>
+
+                    <div className="col-lg-5">
+
+                      <Field 
+                          name="weekDay"
+                          component={Checkbox}
+                          inLine
+                          options={
+                            [
+                              { value: 7, label: 'Sun' },                            
+                              { value: 1, label: 'Mon' },
+                              { value: 2, label: 'Tue' },
+                              { value: 3, label: 'Wed' },
+                              { value: 4, label: 'Thu' },
+                              { value: 5, label: 'Fri' },
+                              { value: 6, label: 'Sat' },
+                            ]
+                          }
                         />
                     </div>
 

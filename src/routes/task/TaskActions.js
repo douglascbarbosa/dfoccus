@@ -23,10 +23,22 @@ export const new_task = (values, redirect = '/tasks') =>{
 
         dispatch({type: TASK_LAODING});
 
+        let dow = false;
+        //Take the days to repeat!
+        if (values.weekDay){
+          dow = [];
+          values.weekDay.forEach((day, index) => {
+              dow.push(index);
+          })
+        }
+
         const task = {
             title : values.title,
             start : moment(values.start).format(),
             end : moment(values.end).format(),
+            frequence: values.frequence || false,
+            repeat: values.repeat || false,
+            dow 
         }
 
         return database.ref(`/users/${getState().user.uid}/${task_path}`)
