@@ -23,24 +23,37 @@ export const new_task = (values, redirect = '/tasks') =>{
 
         dispatch({type: TASK_LAODING});
 
-        let dow = false;
-        //Take the days to repeat!
-        if (values.weekDay){
-          dow = [];
-          values.weekDay.forEach((day, index) => {
-              dow.push(index);
-          })
-        }
+        // let dow = false;
+        // //Take the days to repeat!
+        // if (values.weekDay){
+        //   dow = [];
+        //   values.weekDay.forEach((day, index) => {
+        //       dow.push(index);
+        //   })
+        // }
+
+        // const task = {
+        //     title : values.title,
+        //     start : moment(values.start).format(),
+        //     end : moment(values.end).format(),
+        //     frequence: values.frequence || false,
+        //     repeat: values.repeat || false,
+        //     dow 
+        // }
+
 
         const task = {
-            title : values.title,
-            start : moment(values.start).format(),
-            end : moment(values.end).format(),
-            frequence: values.frequence || false,
-            repeat: values.repeat || false,
-            dow 
+            title:"My repeating event",
+            id: 1,
+            start: '10:00', // a start time (10am in this example)
+            end: '14:00', // an end time (6pm in this example)
+            dow: [ 1, 4 ], // Repeat monday and thursday
+            ranges: [{ //repeating events are only displayed if they are within one of the following ranges.
+                start: moment().startOf('week').format(), //next two weeks
+                end: moment().add(3,'w').format(),
+            }],
         }
-
+        
         return database.ref(`/users/${getState().user.uid}/${task_path}`)
             .push(task)
             .then(ref => {

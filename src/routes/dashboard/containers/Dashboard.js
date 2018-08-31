@@ -7,6 +7,7 @@ import { Field, reduxForm } from 'redux-form'
 import {Input, DatePicker, Select, Checkbox} from '../../../components/forms/inputs'
 import 'fullcalendar-reactwrapper/dist/css/fullcalendar.min.css';
 import {new_task, fetch_tasks, update_task, delete_task} from '../../task/TaskActions';
+import moment from 'moment';
 
 import FullCalendar from 'fullcalendar-reactwrapper';
 
@@ -64,7 +65,7 @@ class Dashboard extends React.Component {
               <div className="box">
                 <div className="box-body">
                   <form role="form" onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-                    <div className="col-lg-4">
+                    <div className="col-lg-12">
                       <Field 
                         type="text"
                         name="title"
@@ -73,24 +74,45 @@ class Dashboard extends React.Component {
                       />
                     </div>
 
-                    <div className="col-lg-3">
+                    <div className="col-lg-2">
                       <Field 
                           name="start"
                           component={DatePicker}
-                          showTimeSel
-                          placeholder="Start at"
-                        />
-                    </div>
-
-                    <div className="col-lg-3">
-                      <Field 
-                          name="end"
-                          component={DatePicker}
-                          showTimeSel
-                          placeholder="End at"
+                          dateFormat="YYYY/MM/DD"
                           autocomplete="off"
                         />
                     </div>
+
+                    <div className="col-lg-2">
+                      <Field 
+                          name="startTime"
+                          component={DatePicker}
+                          showTimeSel
+                          showTimeSelectOnly
+                          dateFormat="HH:mm"
+                          autocomplete="off"
+                        />
+                    </div>
+
+
+                    <div className="col-lg-2">
+                      <Field 
+                          name="end"
+                          component={DatePicker}
+                          dateFormat="YYYY/MM/DD"
+                          autocomplete="off"
+                        />
+                    </div>
+
+                    <div className="col-lg-2">
+                      <Field 
+                          name="endTime"
+                          component={DatePicker}
+                          showTimeSel
+                          showTimeSelectOnly
+                          autocomplete="off"
+                        />
+                  </div>
 
                     <div className="col-lg-2">
                       <Field 
@@ -178,6 +200,13 @@ class Dashboard extends React.Component {
                 eventRender = {this.handleEventRender.bind(this)}
                 slotLabelFormat ={['HH:mm']}
                 height = 'auto'
+                eventRender = {(event, element, view) => {
+                    console.log(event.start.format());
+                    return (event.ranges.filter(function(range){
+                        return (event.start.isBefore(range.end) &&
+                                event.end.isAfter(range.start));
+                    }).length)>0;
+                }}
 
               />
 
@@ -199,13 +228,13 @@ function validate(values){
     errors.title = "Please enter the task title";
   }
 
-  if (!values.start){
-    errors.start = "Please enter when the task start";
-  }
+  // if (!values.start){
+  //   errors.start = "Please enter when the task start";
+  // }
 
-  if (!values.end){
-    errors.end = "Please enter when the task end";
-  }
+  // if (!values.end){
+  //   errors.end = "Please enter when the task end";
+  // }
 
   return errors;
 

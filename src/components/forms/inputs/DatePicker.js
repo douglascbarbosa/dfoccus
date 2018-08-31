@@ -10,7 +10,14 @@ const DatePickerInput = (field) => {
 	const { meta: { touched, error }, label, icon, showTimeSel } = field;
 	const className=`form-group ${ touched && error ? 'has-error' : ''} has-feedback`;
 
+	if (typeof yourVariable === 'object'){
+		field.input.value =  field.input.value.format();
+	}
+
+	console.log(field.input.value);
+
 	return (
+
 
 	    <div className={className}>
 		  {label ?	
@@ -27,7 +34,6 @@ const DatePickerInput = (field) => {
 			<DatePicker 
 				className="form-control"
 				placeholderText={field.placeholder}
-				dateFormat="MM/DD/YYYY HH:mm"
 				timeFormat="HH:mm"
 				// timeIntervals={1}
 				timeCaption="Time"
