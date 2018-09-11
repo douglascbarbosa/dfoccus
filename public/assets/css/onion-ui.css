@@ -95,9 +95,29 @@
     position: absolute;
     top: 0px;
     /* float: left; */
-	left: 88%;	
+	left: 86%;	
 	z-index: 1000;
+	font-size: 6px !important;
 }
+
+.done{
+    position: absolute;
+    top: 0px;
+    /* float: left; */
+	left: 55%;	
+	z-index: 1000;
+	font-size: 6px !important;
+}
+
+.edit{
+    position: absolute;
+    top: 0px;
+    /* float: left; */
+	left: 71%;	
+	z-index: 1000;
+	font-size: 6px !important;
+}
+
 
 .inLineCheck{
 	margin: 5px;

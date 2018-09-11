@@ -1,5 +1,5 @@
 import database, {getUserPath} from '../../firebase/firebase';
-import history from '../../routes/History';
+import history from '../History';
 import moment from 'moment';
 
 export const TASK_NEW         = 'TASK_NEW';
@@ -21,43 +21,40 @@ export const new_task = (values, redirect = '/tasks') =>{
 
     return (dispatch, getState) => {
 
-
         dispatch({type: TASK_LAODING});
 
-        const task = {
-            userId: getState().user.uid, 
-            title : values.title,
-            start: values.start,
-            startTime: values.startTime,
-            end: values.end,
-            endTime: values.endTime,
-            completed: false
-        }
+        // let dow = false;
+        // //Take the days to repeat!
+        // if (values.weekDay){
+        //   dow = [];
+        //   values.weekDay.forEach((day, index) => {
+        //       dow.push(index);
+        //   })
+        // }
 
         // const task = {
         //     title : values.title,
-        //     start : values.start,
-        //     end : values.end,
+        //     start : moment(values.start).format(),
+        //     end : moment(values.end).format(),
         //     frequence: values.frequence || false,
         //     repeat: values.repeat || false,
         //     dow 
         // }
 
 
-        // const task = {
-        //     title:"My repeating event",
-        //     id: 1,
-        //     start: '10:00', // a start time (10am in this example)
-        //     end: '14:00', // an end time (6pm in this example)
-        //     dow: [ 1, 4 ], // Repeat monday and thursday
-        //     ranges: [{ //repeating events are only displayed if they are within one of the following ranges.
-        //         start: moment().startOf('week').format(), //next two weeks
-        //         end: moment().add(3,'w').format(),
-        //     }],
-        // }
+        const task = {
+            title:"My repeating event",
+            id: 1,
+            start: '10:00', // a start time (10am in this example)
+            end: '14:00', // an end time (6pm in this example)
+            dow: [ 1, 4 ], // Repeat monday and thursday
+            ranges: [{ //repeating events are only displayed if they are within one of the following ranges.
+                start: moment().startOf('week').format(), //next two weeks
+                end: moment().add(3,'w').format(),
+            }],
+        }
         
-//        return database.ref(`/users/${getState().user.uid}/${task_path}`)
-        return database.ref(`/${task_path}`)
+        return database.ref(`/users/${getState().user.uid}/${task_path}`)
             .push(task)
             .then(ref => {
                 dispatch({
@@ -120,7 +117,8 @@ export const update_task = (id, values, redirect = '/tasks') => {
 export const delete_task = (id) => {
 
     return (dispatch, getState) => {
-        return database.ref(`/${task_path}/${id}`)
+
+        return database.ref(`/users/${getState().user.uid}/${task_path}/${id}`)
             .remove()
             .then(() => {
 
@@ -144,10 +142,7 @@ export const delete_task = (id) => {
 
 export const fetch_tasks = () => {
     return (dispatch, getState ) => {
-        const ref = database.ref(`/${task_path}`);
-
-        ref.orderByChild("userId").equalTo(getState().user.uid).once("value").then(snapshot => {
-
+        return database.ref(`/users/${getState().user.uid}/${task_path}`).once('value').then(snapshot => {
             const tasks = [];    
 
             snapshot.forEach(childSnapshot => {
@@ -160,23 +155,7 @@ export const fetch_tasks = () => {
               type: TASK_FETCH_ALL,
               tasks
           })  
-
-        });        
-
-        // return database.ref(`/users/${getState().user.uid}/${task_path}`).once('value').then(snapshot => {
-        //     const tasks = [];    
-
-        //     snapshot.forEach(childSnapshot => {
-        //         tasks.push({
-        //             id: childSnapshot.key,
-        //             ...childSnapshot.val()
-        //         });
-        //     });
-        //   dispatch({
-        //       type: TASK_FETCH_ALL,
-        //       tasks
-        //   })  
-        // });
+        });
     }
 }
 

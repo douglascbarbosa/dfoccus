@@ -6,13 +6,15 @@ import {userReducer} from '../components/user'
 // import {accountReducer} from '../routes/accounts'
 // import {categoryReducer} from '../routes/category'
 import {taskReducer} from '../routes/task'
+import {weekReducer} from '../routes/week'
 
 export const rootReducer = combineReducers(
   {
     routing,
     user: userReducer,
     form: formReducer,
-    task: taskReducer
+    task: taskReducer,
+    week: weekReducer
     // account : accountReducer,
     // category : categoryReducer,
     // card : cardReducer 

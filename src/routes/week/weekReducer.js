@@ -9,7 +9,7 @@ import {
     TASK_FORM_CLEAR,
     TASK_CLEAR_MSG,
     TASK_CLEAR_ERROR
-} from './TaskActions';
+} from './WeekActions';
 
 const INITIAL_STATE = {
     task: null,
@@ -35,20 +35,9 @@ export default function taskReducer(state = INITIAL_STATE, action){
         case TASK_DELETE:
             return {...state, list: state.list.filter(e => e.id !== action.id), task : null }; //FIXME: problem with the msg -> , msg : "Account deleted successfully"
         case TASK_FETCH_ALL:
-
-        //Adjust the tasks to showup on calendar!
-            var tasks = action.tasks.map((task) =>{
-                return {
-                    id : task.id,
-                    title : task.title,
-                    start: task.start + ' ' + task.startTime,
-                    end: task.end + ' ' + task.endTime,
-                }
-            });
-
             return {
                 ...state,
-                list : tasks
+                list : [...action.tasks]
             }
         case TASK_FETCH: 
             return {...state, task : {...action.task}, erro: '' }

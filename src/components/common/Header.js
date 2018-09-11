@@ -15,7 +15,7 @@ export default class Header extends React.Component {
 
 					<a href="index2.html" className="logo">
 						<span className="logo-mini"><b>DF</b></span>
-						<span className="logo-lg"><b>DF</b>occus</span>
+						<span className="logo-lg"><b>DF</b>occus - BETA</span>
 					</a>
 
 					<nav className="navbar navbar-static-top">

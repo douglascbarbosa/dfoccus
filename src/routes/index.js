@@ -2,6 +2,7 @@
 export default [
 	require('./dashboard').default,
 	require('./auth').default,
+	require('./week').default,
 	require('./task').default,
 ];	
 

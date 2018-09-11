@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 import AlertMessage, {ALERT_MSG_ERROR} from '../../../components/common/AlertMessage'
 
 import { Field, reduxForm } from 'redux-form'
-import {Input, DatePicker, Select, Checkbox} from '../../../components/forms/inputs'
+import {Input, DatePicker, TimePicker, Select, Checkbox} from '../../../components/forms/inputs'
 import 'fullcalendar-reactwrapper/dist/css/fullcalendar.min.css';
 import {new_task, fetch_tasks, update_task, delete_task} from '../../task/TaskActions';
 import moment from 'moment';
@@ -42,7 +42,10 @@ class Dashboard extends React.Component {
   handleEventRender(event, element){
     const self = this;
     const $ = window.$;
-    element.append( "<span id='"+ event.id +"' class='closeon'><small class='label pull-right bg-red'><i class='fa fa-times'></i></small></span>" );  
+    // element.append( "<span id='"+ event.id +"' class='closeon'><small class='label pull-right bg-red'><i class='fa fa-trash'></i></small></span>" );  
+    element.append( "<button id='"+ event.id +"' class='btn btn-danger closeon'><i class='fa fa-trash'></i></button>" );  
+    element.append( "<button id='"+ event.id +"' class='btn btn-primary edit'><i class='fa fa-pencil'></i></button>" );  
+    element.append( "<button id='"+ event.id +"' class='btn btn-success done'><i class='fa fa-check'></i></button>" );  
     $(element).find($(element).find('#' + event.id)).click(() => {
       
       if (window.confirm("Delete task?")){
@@ -60,7 +63,7 @@ class Dashboard extends React.Component {
 
       <div className="row">
 
-        <div className="col-lg-12">
+        <div className="col-lg-3">
               
               <div className="box">
                 <div className="box-body">
@@ -74,47 +77,49 @@ class Dashboard extends React.Component {
                       />
                     </div>
 
-                    <div className="col-lg-2">
+                    <div className="col-lg-12">
                       <Field 
                           name="start"
                           component={DatePicker}
                           dateFormat="YYYY/MM/DD"
                           autocomplete="off"
+                          placeholder="Start"
                         />
                     </div>
 
-                    <div className="col-lg-2">
+                    <div className="col-lg-12">
                       <Field 
                           name="startTime"
-                          component={DatePicker}
-                          showTimeSel
-                          showTimeSelectOnly
+                          component={TimePicker}
                           dateFormat="HH:mm"
                           autocomplete="off"
+                          placeholder="At"
+
                         />
                     </div>
 
 
-                    <div className="col-lg-2">
+                    <div className="col-lg-12">
                       <Field 
                           name="end"
                           component={DatePicker}
                           dateFormat="YYYY/MM/DD"
                           autocomplete="off"
+                          placeholder="End"
                         />
                     </div>
 
-                    <div className="col-lg-2">
+                    <div className="col-lg-12">
                       <Field 
                           name="endTime"
-                          component={DatePicker}
-                          showTimeSel
-                          showTimeSelectOnly
+                          component={TimePicker}
+                          dateFormat="HH:mm"
                           autocomplete="off"
+                          placeholder="At"
                         />
                   </div>
 
-                    <div className="col-lg-2">
+                    {/* <div className="col-lg-2">
                       <Field 
                           type="number"
                           name="repeat"
@@ -157,7 +162,7 @@ class Dashboard extends React.Component {
                             ]
                           }
                         />
-                    </div>
+                    </div> */}
 
                     <div className="col-lg-2">
                       <button 
@@ -165,7 +170,7 @@ class Dashboard extends React.Component {
                         className="btn btn-primary"
                         disabled={this.props.loading}
                       >
-                        <i className="fa fa-paper-plane-o" ></i> Save
+                        <i className="fa fa-paper-plane-o" ></i> Create task
                       </button>                                                                        
 
                     </div>
@@ -177,7 +182,7 @@ class Dashboard extends React.Component {
               </div>
         </div>        
     
-        <div className="col-lg-12">
+        <div className="col-lg-9">
               
           <div className="box">
             <div className="box-body">
@@ -189,7 +194,7 @@ class Dashboard extends React.Component {
                   center: 'title',
                   right: 'month,agendaWeek,basicDay'
                 }}
-                // defaultDate={'2017-09-12'}
+                defaultDate={moment()}
                 navLinks= {true} // can click day/week names to navigate views
                 editable= {true}
                 eventLimit= {true} // allow "more" link when too many events
@@ -199,14 +204,13 @@ class Dashboard extends React.Component {
                 eventResize = {this.handleEventChange.bind(this)}
                 eventRender = {this.handleEventRender.bind(this)}
                 slotLabelFormat ={['HH:mm']}
-                height = 'auto'
-                eventRender = {(event, element, view) => {
-                    console.log(event.start.format());
-                    return (event.ranges.filter(function(range){
-                        return (event.start.isBefore(range.end) &&
-                                event.end.isAfter(range.start));
-                    }).length)>0;
-                }}
+                // height = 'auto'
+                // eventRender = {(event, element, view) => {
+                //     return event.ranges.filter( range =>
+                //                (event.start.isBefore(range.end) &&
+                //                 event.end.isAfter(range.start))
+                //     ).length > 0;
+                // }}
 
               />
 

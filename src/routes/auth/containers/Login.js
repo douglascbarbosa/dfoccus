@@ -28,7 +28,7 @@ class Login extends React.Component {
         <div className="login-box">
           <div className="login-logo">
             <a href="#">
-              <span className="login-logo-main" >DFoccus</span>
+              <span className="login-logo-main" >DFoccus > BETA </span>
               <span className="login-logo-sub" >Keep focused on your daily tasks</span>
 
             </a>
